@@ -4,9 +4,9 @@ import { ContactForm } from "../components/ContactForm";
 
 export function Contact() {
     return (
-        <div className="min-h-screen bg-white pt-10">
+        <div className="min-h-screen bg-white pt-20">
             {/* Hero Section */}
-            <header className="relative h-[60vh]">
+            <header className="relative h-[40vh]">
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
@@ -52,10 +52,19 @@ export function Contact() {
                                 <div className="flex items-center">
                                     <Mail className="w-8 h-8 text-blue-600 mr-4" />
                                     <div>
-                                        <p className="font-semibold">Email</p>
-                                        <p className="text-gray-600">
+                                        <a
+                                            href="mailto:contact@parisfutsal.fr"
+                                            className="font-semibold"
+                                        >
+                                            Envoyer un e-mail
+                                        </a>{" "}
+                                        <br></br>
+                                        <a
+                                            href="mailto:contact@parisfutsal.fr:example@example.com"
+                                            className="text-gray-600"
+                                        >
                                             contact@parisfutsal.fr
-                                        </p>
+                                        </a>
                                     </div>
                                 </div>
                                 <div>
