@@ -36,7 +36,7 @@ function App() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: isHomePage ? 
-              'url("https://images.unsplash.com/photo-1577416412292-747c6607f055?auto=format&fit=crop&q=80")' :
+              'url("https://cdn.discordapp.com/attachments/1292829468410515630/1331955373552304188/image.jpg?ex=67937f9b&is=67922e1b&hm=6d1d2ffd2d708fdb11b867bf976eb9689c2b4e5e7688b58c9bb012b27fa8b8e0&")' :
               'none',
           }}
         >
@@ -56,7 +56,7 @@ function App() {
                 l'éducation et la solidarité sociale.
               </p>
               <div className="space-x-4">
-                <a href="#academy" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                <a href="/academie" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
                   En savoir plus
                 </a>
                 <a href="/contact" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
