@@ -10,7 +10,7 @@ export function Contact() {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1577221084712-45b0445d2b00?auto=format&fit=crop&q=80")',
+            backgroundImage: 'url("https://img.freepik.com/photos-gratuite/jolie-photo-jeune-beau-athlete-choisissant-piste-musicale-pour-courir-appareil-numerique-homme-afro-americain-solitaire-prenant-pause-dans-son-entrainement-appreciant-belle-chanson-dans-ecouteurs_273609-1195.jpg?t=st=1737642463~exp=1737646063~hmac=42684d09e28cefdb5cde47e07dd78549d682bf232de717bbc1a8665b3335778e&w=996")',
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>

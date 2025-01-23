@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Users, Trophy, Heart, Radio, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, Trophy, Newspaper, BookOpen, Users, Heart, Radio, ExternalLink } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Academie } from './pages/Academie';
 import { ActionSociale } from './pages/ActionSociale';
@@ -9,185 +9,239 @@ import { Contact } from './pages/Contact';
 
 function App() {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const upcomingMatches = [
+  const carouselContent = [
     {
-      date: '2024-03-23',
-      competition: 'Championnat U12',
-      equipe1: 'Paris Futsal Academy',
-      equipe2: 'Marseille Futsal',
-      heure: '14:00'
+      image: "https://cdn.discordapp.com/attachments/1292829468410515630/1331955373552304188/image.jpg?ex=67937f9b&is=67922e1b&hm=6d1d2ffd2d708fdb11b867bf976eb9689c2b4e5e7688b58c9bb012b27fa8b8e0&",
+      title: "Académie de Futsal",
+      description: "Développement technique et personnel pour les jeunes",
+      buttonText: "Découvrir notre académie"
     },
     {
-      date: '2024-03-30',
-      competition: 'Coupe de France',
-      equipe1: 'Lyon Futsal',
-      equipe2: 'Paris Futsal Academy',
-      heure: '15:30'
+      image: "https://cdn.discordapp.com/attachments/1292829468410515630/1331964927690412085/close-up-volunteer-food-box.jpg?ex=67938881&is=67923701&hm=e85f5b230031d1b6fc995f49b4db8819762227e33cfee6c66816ed5d992b1c32&",
+      title: "Actions Sociales",
+      description: "Rénovation, maraudes, et soutien communautaire chaque trimestre",
+      buttonText: "Nos actions solidaires"
+    },
+    {
+      image: "https://cdn.discordapp.com/attachments/1292829468410515630/1331955381152252038/image.jpg?ex=67937f9d&is=67922e1d&hm=35006e9d5e82d5b7c34e12d7d0bc2db55b75b0ea68644fb03516bc6d7e57cb53&",
+      title: "Projet International",
+      description: "Construction de centres de santé et de formation au Sénégal",
+      buttonText: "Nos projets internationaux"
     }
   ];
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselContent.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + carouselContent.length) % carouselContent.length);
+  };
+
+  const upcomingMatch = {
+    date: '23 Mars 2024',
+    competition: 'Championnat U12',
+    team1: 'Paris Futsal Academy',
+    team2: 'Marseille Futsal',
+    time: '14:00'
+  };
+
+  const leagueStandings = [
+    { position: 1, team: 'Paris Futsal Academy', points: 45 },
+    { position: 2, team: 'Lyon Futsal', points: 42 },
+    { position: 3, team: 'Marseille Futsal', points: 38 },
+  ];
+
+  const clubNews = [
+    {
+      title: "Nouveau centre de formation au Sénégal",
+      date: "15 Mars 2024",
+      excerpt: "Notre académie étend son impact international avec un nouveau centre de formation.",
+      image: "https://cdn.discordapp.com/attachments/1292829468410515630/1331955373552304188/image.jpg?ex=67937f9b&is=67922e1b&hm=6d1d2ffd2d708fdb11b867bf976eb9689c2b4e5e7688b58c9bb012b27fa8b8e0&"
+    },
+    {
+      title: "Victoire éclatante en Championnat U12",
+      date: "8 Mars 2024",
+      excerpt: "Nos jeunes talents ont remporté une victoire impressionnante ce weekend.",
+      image: "https://cdn.discordapp.com/attachments/1292829468410515630/1331955381152252038/image.jpg?ex=67937f9d&is=67922e1d&hm=35006e9d5e82d5b7c34e12d7d0bc2db55b75b0ea68644fb03516bc6d7e57cb53&"
+    },
+    {
+      title: "Action sociale : Rénovation dans le 18ème arrondissement",
+      date: "1 Mars 2024",
+      excerpt: "Notre équipe a rénové un appartement pour une famille dans le besoin.",
+      image: "https://img.freepik.com/photos-gratuite/travailleurs-campagne-nettoient-apres-travail_23-2148761819.jpg?t=st=1737635813~exp=1737639413~hmac=c080666be4b80e2475a6531aefb0baa4b0eab71559f20ae03759f7f16236811d&w=1060"
+    }
+  ];
+
+  const isHomePage = location.pathname === '/';
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section with Navigation */}
+      {/* Carousel/Hero Section with Navigation */}
       <header className={`relative ${isHomePage ? 'h-screen' : 'h-20'}`}>
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: isHomePage ? 
-              'url("https://cdn.discordapp.com/attachments/1292829468410515630/1331955373552304188/image.jpg?ex=67937f9b&is=67922e1b&hm=6d1d2ffd2d708fdb11b867bf976eb9689c2b4e5e7688b58c9bb012b27fa8b8e0&")' :
-              'none',
-          }}
-        >
-          {isHomePage && <div className="absolute inset-0 bg-black bg-opacity-50"></div>}
-        </div>
-        
-        <Navbar />
-
-        {isHomePage && (
-          <div className="relative z-10 container mx-auto px-6 h-full flex items-center">
-            <div className="max-w-2xl">
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                Développer les talents, construire l'avenir
-              </h1>
-              <p className="text-xl text-white mb-8">
-                Une académie dédiée à l'épanouissement des jeunes à travers le sport, 
-                l'éducation et la solidarité sociale.
-              </p>
-              <div className="space-x-4">
-                <a href="/academie" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                  En savoir plus
-                </a>
-                <a href="/contact" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-                  Nous contacter
-                </a>
-              </div>
+        {isHomePage ? (
+          <div className="relative h-[600px] overflow-hidden">
+            <div 
+              className="absolute inset-0 transition-transform duration-500"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {carouselContent.map((slide, index) => (
+                <div 
+                  key={index} 
+                  className="absolute w-full h-full bg-cover bg-center"
+                  style={{ backgroundImage: `url(${slide.image})`, left: `${index * 100}%` }}
+                >
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="text-center text-white max-w-2xl">
+                      <h1 className="text-5xl font-bold mb-4">{slide.title}</h1>
+                      <p className="text-xl mb-6">{slide.description}</p>
+                      <a 
+                        href="#" 
+                        className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition"
+                      >
+                        {slide.buttonText}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
+            
+            <button 
+              onClick={prevSlide} 
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 rounded-full p-2"
+            >
+              <ChevronLeft />
+            </button>
+            <button 
+              onClick={nextSlide} 
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 rounded-full p-2"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        ) : (
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: isHomePage ? 
+                'url("https://cdn.discordapp.com/attachments/1292829468410515630/1331955373552304188/image.jpg?ex=67937f9b&is=67922e1b&hm=6d1d2ffd2d708fdb11b867bf976eb9689c2b4e5e7688b58c9bb012b27fa8b8e0&")' :
+                'none',
+            }}
+          >
+            {isHomePage && <div className="absolute inset-0 bg-black bg-opacity-50"></div>}
           </div>
         )}
+        
+        <Navbar />
       </header>
 
       <Routes>
         <Route path="/" element={
           <>
-            {/* Latest Results Section */}
-            <section className="py-20 bg-gray-50">
-              <div className="container mx-auto px-6">
-                <div className="flex justify-between items-center mb-12">
-                  <h2 className="text-4xl font-bold">Derniers Résultats</h2>
-                  <a href="/resultats" className="text-blue-600 hover:text-blue-700 flex items-center">
-                    Voir tous les résultats <ExternalLink className="ml-2 w-4 h-4" />
-                  </a>
+            {/* Match & Classement Grid */}
+            <div className="container mx-auto grid md:grid-cols-2 gap-8 my-16 px-4">
+              {/* Prochain Match */}
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <div className="flex items-center mb-4">
+                  <Calendar className="mr-2 text-blue-600" />
+                  <h2 className="text-2xl font-bold text-blue-900">Prochain Match</h2>
                 </div>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="bg-white p-6 rounded-lg shadow-lg">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-sm text-gray-500">15 Mars 2024</span>
-                      <span className="text-sm font-semibold text-blue-600">Championnat U12</span>
-                    </div>
-                    <div className="grid grid-cols-3 items-center">
-                      <div className="text-right font-semibold">Paris Futsal Academy</div>
-                      <div className="text-center font-bold text-xl">3 - 1</div>
-                      <div className="text-left font-semibold">AS Saint-Étienne</div>
-                    </div>
+                <div className="bg-white p-4 rounded-lg shadow">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">{upcomingMatch.team1}</span>
+                    <span className="text-gray-500">{upcomingMatch.date}</span>
+                    <span className="font-semibold">{upcomingMatch.team2}</span>
                   </div>
-                  <div className="bg-white p-6 rounded-lg shadow-lg">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-sm text-gray-500">8 Mars 2024</span>
-                      <span className="text-sm font-semibold text-blue-600">Coupe de France</span>
-                    </div>
-                    <div className="grid grid-cols-3 items-center">
-                      <div className="text-right font-semibold">Paris Futsal Academy</div>
-                      <div className="text-center font-bold text-xl">2 - 2</div>
-                      <div className="text-left font-semibold">Lyon Futsal</div>
-                    </div>
+                  <div className="text-center text-blue-600 font-bold mt-2">
+                    {upcomingMatch.time}
                   </div>
                 </div>
               </div>
-            </section>
 
-            {/* Upcoming Matches Section */}
-            <section className="py-20">
-              <div className="container mx-auto px-6">
-                <h2 className="text-4xl font-bold mb-12">Prochains Matchs</h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  {upcomingMatches.map((match, index) => (
-                    <div key={index} className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="text-sm text-gray-500">{match.date}</span>
-                        <span className="text-sm font-semibold text-blue-600">{match.competition}</span>
-                      </div>
-                      <div className="grid grid-cols-3 items-center gap-4">
-                        <div className="text-right font-semibold">{match.equipe1}</div>
-                        <div className="text-center font-bold text-xl text-blue-600">{match.heure}</div>
-                        <div className="text-left font-semibold">{match.equipe2}</div>
-                      </div>
-                    </div>
-                  ))}
+              {/* Classement */}
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <div className="flex items-center mb-4">
+                  <Trophy className="mr-2 text-blue-600" />
+                  <h2 className="text-2xl font-bold text-blue-900">Classement</h2>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th>Pos</th>
+                        <th>Équipe</th>
+                        <th>Pts</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {leagueStandings.map((standing) => (
+                        <tr key={standing.position} className={`${standing.team === 'Paris Futsal Academy' ? 'bg-blue-100' : ''}`}>
+                          <td className="text-center">{standing.position}</td>
+                          <td>{standing.team}</td>
+                          <td className="text-center">{standing.points}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </section>
+            </div>
 
-            {/* Media Section */}
-            <section className="py-20 bg-gray-50">
-              <div className="container mx-auto px-6">
-                <h2 className="text-4xl font-bold text-center mb-16">Médias</h2>
-                <div className="grid md:grid-cols-3 gap-8">
-                  <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div className="p-6">
-                      <Radio className="w-8 h-8 text-blue-600 mb-4" />
-                      <h3 className="text-xl font-semibold mb-4">Hodas Radio</h3>
-                      <p className="text-gray-600 mb-4">
-                        Découvrez nos émissions et interviews hebdomadaires
-                      </p>
-                      <a 
-                        href="https://www.youtube.com/@hodasradio" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700"
-                      >
-                        Voir notre chaîne YouTube <ExternalLink className="ml-2 w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1599138900450-3d06e89ad32c?auto=format&fit=crop&q=80" 
-                      alt="Futsal action" 
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-4">Galerie Photos</h3>
-                      <p className="text-gray-600 mb-4">
-                        Moments forts de nos activités et événements
-                      </p>
-                      <a 
-                        href="https://www.instagram.com/parisfutsalacademy" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700"
-                      >
-                        Suivez-nous sur Instagram <ExternalLink className="ml-2 w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&q=80" 
-                      alt="Futsal match" 
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-4">Actualités</h3>
-                      <p className="text-gray-600">
-                        Suivez toute l'actualité de l'académie
-                      </p>
-                    </div>
-                  </div>
+            {/* Actualités */}
+            <div className="container mx-auto my-16 px-4">
+              <div className="flex items-center mb-8">
+                <Newspaper className="mr-2 text-blue-600" />
+                <h2 className="text-3xl font-bold text-blue-900">Actualités du Club</h2>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8">
+      {clubNews.map((news, index) => (
+        <div key={index} className="bg-blue-50 rounded-lg overflow-hidden shadow-lg">
+          <img 
+            src={news.image} 
+            alt={news.title} 
+            className="w-full h-48 object-cover"
+          />
+          <div className="p-6">
+            <span className="text-sm text-gray-500">{news.date}</span>
+            <h3 className="text-xl font-bold mt-2 mb-3">{news.title}</h3>
+            <p className="text-gray-600">{news.excerpt}</p>
+            <a href="#" className="text-blue-600 mt-4 inline-block">Lire plus</a>
+          </div>
+        </div>
+      ))}
+    </div>
+            </div>
+
+            {/* Histoire du Club */}
+            <div className="container mx-auto my-16 px-4">
+              <div className="flex items-center mb-8">
+                <BookOpen className="mr-2 text-blue-600" />
+                <h2 className="text-3xl font-bold text-blue-900">Notre Histoire</h2>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                <img 
+                  src="https://cdn.discordapp.com/attachments/1292829468410515630/1331955380565311559/image.jpg?ex=67937f9d&is=67922e1d&hm=20d5adb2bc01c566da2b161280bddb4a17893c6a1719c436485a0b9653a6212a&" 
+                  alt="Histoire du Club" 
+                  className="rounded-lg shadow-lg"
+                />
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    Fondée avec la vision de transformer des vies à travers le sport, 
+                    Paris Futsal Academy a commencé comme un petit projet communautaire 
+                    dans le 18ème arrondissement de Paris.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Depuis, nous avons développé une académie qui va bien au-delà du futsal, 
+                    en offrant un accompagnement éducatif, social et sportif personnalisé 
+                    pour les jeunes de 6 à 12 ans.
+                  </p>
+                  <a href="#" className="text-blue-600 inline-block">Notre parcours complet</a>
                 </div>
               </div>
-            </section>
+            </div>
           </>
         } />
         <Route path="/academie" element={<Academie />} />
